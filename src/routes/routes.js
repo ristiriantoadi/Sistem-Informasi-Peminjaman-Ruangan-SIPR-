@@ -16,7 +16,7 @@ const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/peminjaman",
+    redirect: "peminjaman",
     children: [
       {
         path: "/peminjaman",
@@ -27,13 +27,6 @@ const routes = [
             path:"",
             name:"Peminjaman",
             component:Peminjaman,
-            meta:{
-              breadcrumb:[
-                {
-                  'name':'Peminjaman'
-                }
-              ]
-            }
           },
           {
             path:":ruangan",

@@ -1,13 +1,6 @@
 <template>
     <div>
         <div class="md-layout">
-            <div class="md-layout-item">
-                <div class="breadcrumb">
-                    <router-link to="/peminjaman">Peminjaman</router-link>
-                </div>
-            </div>
-        </div>
-        <div class="md-layout">
             <!-- <div class="breadcrumb">Peminjaman</div> -->
             <div class="md-layout-item">
                 <md-card>
@@ -22,11 +15,11 @@
                             </md-table-row>
                             <md-table-row>
                                 <md-table-cell>A3-01</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
+                                <md-table-cell><router-link to="peminjaman/a301">Lihat Daftar</router-link></md-table-cell>
                             </md-table-row>
                             <md-table-row>
                                 <md-table-cell>A3-02</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
+                                <md-table-cell><router-link to="peminjaman/a302">Lihat Daftar</router-link></md-table-cell>
                             </md-table-row>
                             <md-table-row>
                                 <md-table-cell>B1-01</md-table-cell>
