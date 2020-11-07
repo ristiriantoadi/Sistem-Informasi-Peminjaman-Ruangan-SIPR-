@@ -7,9 +7,9 @@
       :sidebar-background-image="sidebarBackgroundImage"
       :title="title"
     >
-      <sidebar-link to="/dashboard">
+      <sidebar-link to="/peminjaman">
         <md-icon>dashboard</md-icon>
-        <p>Ruangan</p>
+        <p>Peminjaman</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>
@@ -70,6 +70,8 @@ export default {
     DashboardContent,
     ContentFooter
     // FixedPlugin
+  },
+  computed:{
   },
   data() {
     return {

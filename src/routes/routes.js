@@ -8,17 +8,39 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
+import PeminjamanLayout from "@/pages/PeminjamanLayout.vue";
+import Peminjaman from "@/pages/Peminjaman.vue";
+import PeminjamanRuangan from "@/pages/PeminjamanRuangan.vue";
 
 const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/dashboard",
+    redirect: "/peminjaman",
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
-        component: Dashboard
+        path: "/peminjaman",
+        name: "PeminjamanLayout",
+        component: PeminjamanLayout,
+        children:[
+          {
+            path:"",
+            name:"Peminjaman",
+            component:Peminjaman,
+            meta:{
+              breadcrumb:[
+                {
+                  'name':'Peminjaman'
+                }
+              ]
+            }
+          },
+          {
+            path:":ruangan",
+            name:"PeminjamanRuangan",
+            component:PeminjamanRuangan
+          }
+        ]
       },
       {
         path: "user",
