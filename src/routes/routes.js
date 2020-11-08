@@ -38,10 +38,12 @@ const routes = [
             name:"Peminjaman",
             component:Peminjaman,
             meta:{
-              breadcrumb:{
-                name:"Peminjaman",
-                link:"/peminjaman"              
-              },
+              breadcrumb:
+                [
+                  {
+                    name:"Peminjaman",
+                  }
+                ],            
               protected:true
             }
           },
@@ -50,7 +52,15 @@ const routes = [
             name:"PeminjamanRuangan",
             component:PeminjamanRuangan,
             meta:{
-              type:"dynamic",
+              breadcrumb:
+                [
+                  {
+                    name:"Peminjaman",
+                  },
+                  {
+                    type:"dynamic"
+                  }
+                ],
               protected:true
             }
           }

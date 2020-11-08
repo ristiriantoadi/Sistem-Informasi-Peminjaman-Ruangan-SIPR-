@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="md-layout">
+            <div class="md-layout-item">
+                <breadcrumb></breadcrumb>
+            </div>
+        </div>
+    <div class="md-layout">
       <div class="md-layout-item">
         <h3>{{ruanganUppercase}}</h3>
       </div>
@@ -41,10 +46,35 @@
 </template>
 
 <script>
+import Breadcrumb from "@/components/Breadcrumb.vue"
 export default {
   name:"PeminjamanRuangan",
-  mounted(){
-    console.log(this.$route.params)
+  components:{
+    Breadcrumb
+  },
+  data(){
+    return{
+      breadcrumb:[]
+    }
+  },
+  methods:{
+    calculateBreadcrumb(){
+            // console.log(this.$route.meta.breadcrumb)
+            this.$route.meta.breadcrumb.map((breadcrumbItem,index)=>{
+                if(breadcrumbItem.name == null){
+                  console.log(this.$route.path)
+                  let paths=this.$route.path.split("/")
+                  paths.shift()
+                  breadcrumbItem.name = paths[index]
+                  breadcrumbItem.link = breadcrumbItem.link+"/"+paths[index]
+                }
+                // if(index != this.$route.meta.breadcrumb.length-1){
+                //   breadcrumbItem.name += " > "
+                // }
+                this.breadcrumb.push(breadcrumbItem)
+                // console.log(breadcrumbItem.link)
+            })
+        }
   },
   computed:{
     ruanganUppercase(){
@@ -52,9 +82,11 @@ export default {
     }
   },
   mounted(){
-        console.log(this.$route.path)
-        let routeMatched = this.$route.matched
-        console.log(routeMatched)
+        // console.log(this.$route.path)
+        // let routeMatched = this.$route.matched
+        // console.log(routeMatched)
+        // console.log("hello")
+        this.calculateBreadcrumb()
   }
 }
 </script>

@@ -41,7 +41,7 @@ export default {
                 nim:this.nim,
                 password:this.password
             }).then(res=>{
-                console.log(res)
+                // console.log(res)
                 let token = res.data.token
                 this.$store.commit('setToken',token)
                 this.$store.commit('login',true)

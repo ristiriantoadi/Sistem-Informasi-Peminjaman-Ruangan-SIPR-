@@ -2,11 +2,13 @@
     <div>
         <div class="md-layout">
             <div class="md-layout-item">
-                <div class="breadcrumb">
+                <!-- <div class="breadcrumb">
                     <span class="breadcrumb-item" v-for="breadcrumbItem in breadcrumb" :key="breadcrumbItem.index" >
-                        <router-link to="breadcrumbItem.path"></router-link>
+                        <router-link :to="breadcrumbItem.link">{{breadcrumbItem.name}}</router-link>
+                        <span> > </span>
                     </span>
-                </div>
+                </div> -->
+                <breadcrumb></breadcrumb>
             </div>
         </div>
         <div class="md-layout">
@@ -55,30 +57,19 @@
 </template>
 
 <script>
+import Breadcrumb from "@/components/Breadcrumb.vue"
 export default {
+    components:{
+        Breadcrumb
+    },
     name:"Peminjaman",
     data(){
         return {
             breadcrumb:[]
         }
     },
-    mounted(){
-        console.log(this.$route.path)
-        let routeMatched = this.$route.matched
-        console.log(routeMatched.length)
-        
-        for (var i = 0; i < routeMatched.length; i++) {
-            console.log(this.$route.matched[i])    
-        }
-        
+    methods:{
     }
-    // console.log(routeMatched)
-
-    // computed:{
-    //     breadcrumb(){
-            
-    //     }
-    // }
 }
 </script>
 

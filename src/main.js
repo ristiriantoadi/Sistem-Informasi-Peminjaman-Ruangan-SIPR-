@@ -40,20 +40,9 @@ const router = new VueRouter({
   linkExactActiveClass: "nav-item active"
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.protected && !isLoggedIn()) {
-//     next({
-//       path: '/login',
-//       query: { redirect: to.fullPath }
-//     })
-//   }
-//   else {
-//     next()
-//   }  
-// })
 router.beforeEach((to, from, next) => {
   // console.log("yes")
-  console.log(store.state.isLoggedIn)
+  // console.log(store.state.isLoggedIn)
   if(to.meta.protected && !store.state.isLoggedIn)
     // console.log(store.state.isLoggedIn)
     next({path:"/login"})
