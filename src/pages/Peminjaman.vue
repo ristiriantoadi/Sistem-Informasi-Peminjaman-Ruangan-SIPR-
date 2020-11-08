@@ -1,6 +1,15 @@
 <template>
     <div>
         <div class="md-layout">
+            <div class="md-layout-item">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item" v-for="breadcrumbItem in breadcrumb" :key="breadcrumbItem.index" >
+                        <router-link to="breadcrumbItem.path"></router-link>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="md-layout">
             <!-- <div class="breadcrumb">Peminjaman</div> -->
             <div class="md-layout-item">
                 <md-card>
@@ -47,7 +56,29 @@
 
 <script>
 export default {
-    name:"Peminjaman"
+    name:"Peminjaman",
+    data(){
+        return {
+            breadcrumb:[]
+        }
+    },
+    mounted(){
+        console.log(this.$route.path)
+        let routeMatched = this.$route.matched
+        console.log(routeMatched.length)
+        
+        for (var i = 0; i < routeMatched.length; i++) {
+            console.log(this.$route.matched[i])    
+        }
+        
+    }
+    // console.log(routeMatched)
+
+    // computed:{
+    //     breadcrumb(){
+            
+    //     }
+    // }
 }
 </script>
 

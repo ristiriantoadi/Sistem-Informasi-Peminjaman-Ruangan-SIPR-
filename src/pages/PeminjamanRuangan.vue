@@ -50,6 +50,11 @@ export default {
     ruanganUppercase(){
       return this.$route.params.ruangan.toUpperCase()
     }
+  },
+  mounted(){
+        console.log(this.$route.path)
+        let routeMatched = this.$route.matched
+        console.log(routeMatched)
   }
 }
 </script>

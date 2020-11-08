@@ -11,27 +11,41 @@ import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 import PeminjamanLayout from "@/pages/PeminjamanLayout.vue";
 import Peminjaman from "@/pages/Peminjaman.vue";
 import PeminjamanRuangan from "@/pages/PeminjamanRuangan.vue";
+import Login from "@/pages/Login.vue"
 
 const routes = [
   {
-    path: "/",
+    path:"/login",
+    component:Login,
+  },
+  {
+    path: "",
     component: DashboardLayout,
-    redirect: "peminjaman",
+    redirect: "/login",
     children: [
       {
-        path: "/peminjaman",
+        path: "peminjaman",
         name: "PeminjamanLayout",
         component: PeminjamanLayout,
+        meta:{
+          breadcrumb:{
+            name:"Peminjaman",
+            link:"/peminjaman"              
+          }
+        },
         children:[
           {
             path:"",
             name:"Peminjaman",
-            component:Peminjaman,
+            component:Peminjaman
           },
           {
             path:":ruangan",
             name:"PeminjamanRuangan",
-            component:PeminjamanRuangan
+            component:PeminjamanRuangan,
+            meta:{
+              type:"dynamic"
+            }
           }
         ]
       },

@@ -26,6 +26,9 @@ import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
 import Notifications from "./components/NotificationPlugin";
 
+//store
+import {store} from "@/store"
+
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
@@ -36,6 +39,18 @@ const router = new VueRouter({
   routes, // short for routes: routes
   linkExactActiveClass: "nav-item active"
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.protected && !isLoggedIn()) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  }
+  else {
+    next()
+  }  
+})
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -50,6 +65,7 @@ new Vue({
   el: "#app",
   render: h => h(App),
   router,
+  store,
   data: {
     Chartist: Chartist
   }
