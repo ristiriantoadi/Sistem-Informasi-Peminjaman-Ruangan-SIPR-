@@ -42,6 +42,10 @@ export default {
                 password:this.password
             }).then(res=>{
                 console.log(res)
+                let token = res.data.token
+                this.$store.commit('setToken',token)
+                this.$store.commit('login',true)
+                this.$router.replace({path:'/peminjaman'})
             }).catch(err=>{
                 console.log(err)
             })

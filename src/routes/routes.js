@@ -17,6 +17,9 @@ const routes = [
   {
     path:"/login",
     component:Login,
+    meta:{
+      protected:false
+    }
   },
   {
     path: "",
@@ -28,23 +31,27 @@ const routes = [
         name: "PeminjamanLayout",
         component: PeminjamanLayout,
         meta:{
-          breadcrumb:{
-            name:"Peminjaman",
-            link:"/peminjaman"              
-          }
         },
         children:[
           {
             path:"",
             name:"Peminjaman",
-            component:Peminjaman
+            component:Peminjaman,
+            meta:{
+              breadcrumb:{
+                name:"Peminjaman",
+                link:"/peminjaman"              
+              },
+              protected:true
+            }
           },
           {
             path:":ruangan",
             name:"PeminjamanRuangan",
             component:PeminjamanRuangan,
             meta:{
-              type:"dynamic"
+              type:"dynamic",
+              protected:true
             }
           }
         ]

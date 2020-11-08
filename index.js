@@ -3,14 +3,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 //initialization
 const app = express()
 const PORT = process.env.port || 5000
 
 
-//import models
+//const
+const SECRET_KEY="secret"
 
+//import models
 const User = require('./models/User')
 
 
@@ -39,7 +42,15 @@ app.post('/login', async function (req, res) {
     }
 
     if(user != null){
-        res.json(user)
+        const token = jwt.sign({
+            _id:user._id,
+            nim:user.nim,
+            password:user.password
+        },SECRET_KEY)
+        res.json({
+            token
+        })
+
     }else{
         res.sendStatus(401)
     }
