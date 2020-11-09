@@ -11,11 +11,9 @@ export const store = new Vuex.Store({
     getters:{
     },
     mutations:{
-        setToken(state,input){
-            state.token=input
-        },
-        login(state,input){
-            state.isLoggedIn = input
+        login(state,token){
+            state.token = token
+            state.isLoggedIn=true
         }
     },
     actions:{
