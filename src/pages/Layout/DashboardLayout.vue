@@ -11,7 +11,7 @@
         <md-icon>dashboard</md-icon>
         <p>Peminjaman</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link to="/permohonan">
         <md-icon>person</md-icon>
         <p>Permohonan</p>
       </sidebar-link>

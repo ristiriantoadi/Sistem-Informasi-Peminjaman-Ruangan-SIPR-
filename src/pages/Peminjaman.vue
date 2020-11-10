@@ -1,17 +1,6 @@
 <template>
     <div>
         <div class="md-layout">
-            <div class="md-layout-item">
-                <!-- <div class="breadcrumb">
-                    <span class="breadcrumb-item" v-for="breadcrumbItem in breadcrumb" :key="breadcrumbItem.index" >
-                        <router-link :to="breadcrumbItem.link">{{breadcrumbItem.name}}</router-link>
-                        <span> > </span>
-                    </span>
-                </div> -->
-                <breadcrumb></breadcrumb>
-            </div>
-        </div>
-        <div class="md-layout">
             <!-- <div class="breadcrumb">Peminjaman</div> -->
             <div class="md-layout-item">
                 <md-card>
@@ -37,11 +26,11 @@
 </template>
 
 <script>
-import Breadcrumb from "@/components/Breadcrumb.vue"
+// import Breadcrumb from "@/components/Breadcrumb.vue"
 import axios from 'axios'
 export default {
     components:{
-        Breadcrumb
+        // Breadcrumb
     },
     name:"Peminjaman",
     data(){

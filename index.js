@@ -17,6 +17,7 @@ const SECRET_KEY="secret"
 const User = require('./models/User')
 const Room = require('./models/Room')
 const Peminjaman = require('./models/Peminjaman')
+const Permohonan = require('./models/Permohonan')
 
 //middleware
 app.use(bodyParser.json())
@@ -51,6 +52,31 @@ app.get('/ruangan',verifyToken,async function(req,res){
         res.json(rooms)
     }catch(err){
         res.json({message:err})
+    }
+})
+app.get('/permohonan',verifyToken,async function(req,res){
+    console.log(req.user)
+    try{
+        const permohonans = await Permohonan.find({nimPeminjam:req.user.nim})
+        let recordPermohonan=[]
+        for(let i=0;i<permohonans.length;i++){
+            try{
+                const ruangan = await Room.findById(permohonans[i].idRuangan)
+                recordPermohonan.push({
+                    nimPeminjam:permohonans[i].nimPeminjam,
+                    tanggalPeminjaman:permohonans[i].tanggal,
+                    waktuPeminjaman:permohonans[i].waktu,
+                    perihalPeminjaman:permohonans[i].perihal,
+                    namaRuangan:ruangan.namaRuangan,
+                    statusPermohonan:permohonans[i].status
+                })
+            }catch(err){
+                console.log(err)
+            }
+        }
+        res.json(recordPermohonan)
+    }catch(err){
+        console.log(err)
     }
 })
 app.get('/ruangan/:namaRuangan',verifyToken,async function (req,res){

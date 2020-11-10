@@ -12,6 +12,7 @@ import PeminjamanLayout from "@/pages/PeminjamanLayout.vue";
 import Peminjaman from "@/pages/Peminjaman.vue";
 import PeminjamanRuangan from "@/pages/PeminjamanRuangan.vue";
 import Login from "@/pages/Login.vue"
+import Permohonan from "@/pages/Permohonan.vue"
 
 const routes = [
   {
@@ -66,6 +67,15 @@ const routes = [
           }
         ]
       },
+      {
+        path:"permohonan",
+        name:"Permohonan",
+        component:Permohonan,
+        meta:{
+          protected:true
+        }
+      },
+
       {
         path: "user",
         name: "User Profile",
