@@ -24,29 +24,9 @@
                                 <md-table-head>Nama Ruangan</md-table-head>
                                 <md-table-head>Peminjaman</md-table-head>
                             </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>A3-01</md-table-cell>
-                                <md-table-cell><router-link to="peminjaman/a301">Lihat Daftar</router-link></md-table-cell>
-                            </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>A3-02</md-table-cell>
-                                <md-table-cell><router-link to="peminjaman/a302">Lihat Daftar</router-link></md-table-cell>
-                            </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>B1-01</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
-                            </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>B1-02</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
-                            </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>B2-01</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
-                            </md-table-row>
-                            <md-table-row>
-                                <md-table-cell>B2-02</md-table-cell>
-                                <md-table-cell><a>Lihat Daftar</a></md-table-cell>
+                            <md-table-row v-for="ruangan in ruangans" :key="ruangan.namaRuangan" >
+                                <md-table-cell>{{ruangan.namaRuangan}}</md-table-cell>
+                                <md-table-cell><router-link :to="ruangan.link">Lihat Daftar</router-link></md-table-cell>
                             </md-table-row>
                         </md-table>
                     </md-card-content>
@@ -58,6 +38,7 @@
 
 <script>
 import Breadcrumb from "@/components/Breadcrumb.vue"
+import axios from 'axios'
 export default {
     components:{
         Breadcrumb
@@ -65,10 +46,33 @@ export default {
     name:"Peminjaman",
     data(){
         return {
-            breadcrumb:[]
+            breadcrumb:null,
+            ruangans:[]
         }
     },
     methods:{
+    },
+    created(){
+        let vm=this
+        axios.get('http://localhost:5000/ruangan')
+        .then(function (response) {
+            // handle success
+            console.log(vm.ruangans)
+            response.data.map(ruangan=>{
+                vm.ruangans.push({
+                    namaRuangan:ruangan.namaRuangan.toUpperCase(),
+                    link:"/peminjaman/"+ruangan.namaRuangan
+                })
+            })
+            console.log(vm.ruangans)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
     }
 }
 </script>

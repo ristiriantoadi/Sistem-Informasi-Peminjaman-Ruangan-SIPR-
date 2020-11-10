@@ -68,7 +68,7 @@ export default {
         text-align: center;
     }
     .login-card{
-        width:50%;
+        width:auto;
         margin: 0 auto;
     }
     .container{

@@ -15,7 +15,8 @@ const SECRET_KEY="secret"
 
 //import models
 const User = require('./models/User')
-
+const Room = require('./models/Room')
+const Peminjaman = require('./models/Peminjaman')
 
 //middleware
 app.use(bodyParser.json())
@@ -25,6 +26,44 @@ app.use(cors())
 app.get('/', function (req, res) {
     res.send('Hello World!')
   })
+app.get('/ruangan',async function(req,res){
+    try{
+        const rooms = await Room.find()
+        res.json(rooms)
+    }catch(err){
+        res.json({message:err})
+    }
+})
+app.get('/ruangan/:namaRuangan',async function (req,res){
+    try{
+        //get room data
+        const room = await Room.findOne({namaRuangan:req.params.namaRuangan.toUpperCase()})
+        
+        //get peminjaman data
+        const peminjaman = await Peminjaman.find({_idRuangan:room._id})
+        
+        //for each peminjaman, get user data
+        let recordPeminjaman=[]
+        for(let i=0;i<peminjaman.length;i++){
+            try{
+                const user = await User.findOne({nim:peminjaman[i].nimPeminjam})
+                recordPeminjaman.push({
+                    nimPeminjam:peminjaman[i].nimPeminjam,
+                    namaLengkapPeminjam:user.namaLengkap,
+                    tanggalPeminjaman:peminjaman[i].tanggal,
+                    waktuPeminjaman:peminjaman[i].waktu,
+                    perihalPeminjaman:peminjaman[i].perihal,
+                    namaRuangan:req.params.namaRuangan
+                })
+            }catch(err){
+                console.log(err)
+            }
+        }
+        res.json(recordPeminjaman)
+    }catch(err){
+        res.json(err)
+    }
+})
 app.post('/login', async function (req, res) {
     // res.json({
     //     username:req.body.username,

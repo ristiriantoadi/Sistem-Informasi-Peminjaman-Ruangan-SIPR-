@@ -25,17 +25,11 @@
                 <md-table-head>Perihal</md-table-head>
                 <!-- <md-table-head></md-table-head> -->
               </md-table-row>
-              <md-table-row>
-                <md-table-cell>Wawan Setiawan</md-table-cell>
-                <md-table-cell>10 Oktober 2020</md-table-cell>
-                <md-table-cell>08:00-13:00</md-table-cell>
-                <md-table-cell>Kegiatan Lomba Membuat Poster HUT Momen</md-table-cell>
-              </md-table-row>
-              <md-table-row>
-                <md-table-cell>Andika</md-table-cell>
-                <md-table-cell>12 Oktober 2020</md-table-cell>
-                <md-table-cell>15:00-18:00</md-table-cell>
-                <md-table-cell>Rapat Umum Himpunan Informatika</md-table-cell>
+              <md-table-row v-for="p in peminjaman" :key="p.index">
+                <md-table-cell>{{p.namaLengkapPeminjam}} ({{p.nimPeminjam}})</md-table-cell>
+                <md-table-cell>{{p.tanggalPeminjaman}}</md-table-cell>
+                <md-table-cell>{{p.waktuPeminjaman}}</md-table-cell>
+                <md-table-cell>{{p.perihalPeminjaman}}</md-table-cell>
               </md-table-row>
             </md-table>
           </md-card-content>
@@ -47,6 +41,7 @@
 
 <script>
 import Breadcrumb from "@/components/Breadcrumb.vue"
+import axios from "axios"
 export default {
   name:"PeminjamanRuangan",
   components:{
@@ -54,7 +49,8 @@ export default {
   },
   data(){
     return{
-      breadcrumb:[]
+      breadcrumb:[],
+      peminjaman:[]
     }
   },
   methods:{
@@ -87,6 +83,23 @@ export default {
         // console.log(routeMatched)
         // console.log("hello")
         this.calculateBreadcrumb()
+  },
+  created(){
+    let vm=this
+    axios.get('http://localhost:5000/ruangan/'+this.$route.params.ruangan)
+    .then(function (response) {
+      // handle success
+      response.data.map(peminjaman=>{
+        peminjaman.tanggalPeminjaman = peminjaman.tanggalPeminjaman.split('T')[0]
+        vm.peminjaman.push({
+          ...peminjaman
+        })
+      })
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
   }
 }
 </script>
