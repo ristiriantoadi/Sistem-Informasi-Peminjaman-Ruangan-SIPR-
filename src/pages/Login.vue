@@ -50,7 +50,7 @@ export default {
                 nim:this.nim,
                 password:this.password
             }).then(res=>{
-                this.$store.commit('login',res.data.token)
+                this.$store.commit('login',res.data)
                 this.$router.replace({path:'/peminjaman'})
             }).catch(err=>{
                 console.log(err.response.status)

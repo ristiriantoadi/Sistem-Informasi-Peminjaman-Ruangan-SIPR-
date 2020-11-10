@@ -80,7 +80,8 @@
               </a>
             </li> -->
             <md-list-item>
-              <p>Ristirianto Adi</p>
+              <p v-if="$store.state.nim != 'admin'">{{$store.state.namaLengkap}} ({{$store.state.nim}})</p>
+              <p v-else>Admin</p>
             </md-list-item>
             <md-list-item v-on:click="logout">
               <p>Logout</p>
@@ -118,7 +119,9 @@ export default {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
     logout(){
-      console.log("logout")
+      // console.log("logout")
+      this.$store.commit('logout')
+      this.$router.push({path:'/login'})
     }
   }
 };

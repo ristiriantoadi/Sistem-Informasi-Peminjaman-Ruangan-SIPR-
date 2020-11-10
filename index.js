@@ -32,8 +32,6 @@ app.post('/login', async function (req, res) {
     // })
     let user=null
     try{
-        console.log(req.body.nim)
-        console.log(req.body.password)
         user = await User.findOne({nim:req.body.nim,password:req.body.password})
         // const users = await User.find()
         // res.json(user)
@@ -48,7 +46,9 @@ app.post('/login', async function (req, res) {
             password:user.password
         },SECRET_KEY)
         res.json({
-            token
+            token,
+            namaLengkap:user.namaLengkap,
+            nim:user.nim
         })
 
     }else{

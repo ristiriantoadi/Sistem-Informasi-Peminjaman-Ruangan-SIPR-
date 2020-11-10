@@ -6,14 +6,24 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state:{
         token:'',
-        isLoggedIn:false
+        isLoggedIn:false,
+        nim:'',
+        namaLengkap:''
     },
     getters:{
     },
     mutations:{
-        login(state,token){
-            state.token = token
+        login(state,payload){
+            state.token = payload.token
+            state.nim = payload.nim
+            state.namaLengkap = payload.namaLengkap
             state.isLoggedIn=true
+        },
+        logout(state){
+            state.token=''
+            state.nim=''
+            state.namaLengkap=''
+            state.isLoggedIn=false
         }
     },
     actions:{
