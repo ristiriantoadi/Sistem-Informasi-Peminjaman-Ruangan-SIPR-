@@ -54,7 +54,11 @@ export default {
     },
     created(){
         let vm=this
-        axios.get('http://localhost:5000/ruangan')
+        axios.get('http://localhost:5000/ruangan',{
+            headers:{
+                'authorization':'BEARER '+this.$store.state.token
+            }
+        })
         .then(function (response) {
             // handle success
             console.log(vm.ruangans)

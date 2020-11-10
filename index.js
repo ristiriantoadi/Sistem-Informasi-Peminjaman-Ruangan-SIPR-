@@ -22,11 +22,30 @@ const Peminjaman = require('./models/Peminjaman')
 app.use(bodyParser.json())
 app.use(cors())
 
+
+//middleware function
+function verifyToken(req,res,next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token ==null){
+        return res.sendStatus(401)//unauthorized or unauthenticated
+    }
+
+    jwt.verify(token,SECRET_KEY,(err,user)=>{
+        if(err){
+            return res.sendStatus(403)//forbidden
+        }
+        req.user = user
+        next()
+    })
+}
+
 //routing
 app.get('/', function (req, res) {
     res.send('Hello World!')
   })
-app.get('/ruangan',async function(req,res){
+app.get('/ruangan',verifyToken,async function(req,res){
     try{
         const rooms = await Room.find()
         res.json(rooms)
@@ -34,7 +53,7 @@ app.get('/ruangan',async function(req,res){
         res.json({message:err})
     }
 })
-app.get('/ruangan/:namaRuangan',async function (req,res){
+app.get('/ruangan/:namaRuangan',verifyToken,async function (req,res){
     try{
         //get room data
         const room = await Room.findOne({namaRuangan:req.params.namaRuangan.toUpperCase()})
