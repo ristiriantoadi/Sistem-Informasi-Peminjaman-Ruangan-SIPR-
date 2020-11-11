@@ -1,11 +1,6 @@
 <template>
   <div>
     <div class="md-layout">
-            <div class="md-layout-item">
-                <breadcrumb></breadcrumb>
-            </div>
-        </div>
-    <div class="md-layout">
       <div class="md-layout-item">
         <h3>{{ruanganUppercase}}</h3>
       </div>
@@ -40,12 +35,12 @@
 </template>
 
 <script>
-import Breadcrumb from "@/components/Breadcrumb.vue"
+// import Breadcrumb from "@/components/Breadcrumb.vue"
 import axios from "axios"
 export default {
   name:"PeminjamanRuangan",
   components:{
-    Breadcrumb
+    // Breadcrumb
   },
   data(){
     return{

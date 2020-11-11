@@ -1,5 +1,36 @@
 <template>
   <div>
+        <md-dialog :md-active.sync="dialogPengajuanPermohonan">
+            <md-dialog-title>Pengajuan Permohonan</md-dialog-title>
+            <md-dialog-content>
+                <div>
+                    <md-field>
+                        <label>Nama Ruangan</label>
+                        <md-input v-model="namaRuangan"></md-input>
+                    </md-field>
+                    <md-field>
+                        <label>Tanggal Peminjaman</label>
+                        <md-datepicker v-model="tanggalPeminjaman"> </md-datepicker>
+                    </md-field>
+                    <md-field>
+                        <label>Waktu Peminjaman</label>
+                        <md-input v-model="waktuPeminjaman"></md-input>
+                    </md-field>
+                    <md-field>
+                        <label>Perihal</label>
+                        <md-input v-model="perihalPeminjaman"></md-input>
+                    </md-field>
+                </div>
+            </md-dialog-content>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="simpanPengajuanPermohonan">Ajukan</md-button>
+            </md-dialog-actions>
+    </md-dialog>
+        <div class="md-layout">
+            <div class="md-layout-item">
+                <md-button class="md-primary" @click="ajukanPermohonan">Ajukan permohonan</md-button>
+            </div>
+        </div>
         <div class="md-layout">
             <div class="md-layout-item">
                 <md-card>
@@ -12,12 +43,14 @@
                                 <md-table-head>Nama Ruangan</md-table-head>
                                 <md-table-head>Tanggal</md-table-head>
                                 <md-table-head>Waktu</md-table-head>
+                                <md-table-head>Perihal</md-table-head>
                                 <md-table-head>Status</md-table-head>
                             </md-table-row>
                             <md-table-row v-for="permohonan in permohonans" :key="permohonan.index" >
                                 <md-table-cell>{{permohonan.namaRuangan}}</md-table-cell>
                                 <md-table-cell>{{permohonan.tanggalPeminjaman}}</md-table-cell>
                                 <md-table-cell>{{permohonan.waktuPeminjaman}}</md-table-cell>
+                                <md-table-cell>{{permohonan.perihalPeminjaman}}</md-table-cell>
                                 <md-table-cell>
                                     <span class="statusPermohonan" :class="permohonan.statusPermohonan">{{permohonan.statusPermohonan}}</span>
                                 </md-table-cell>
@@ -37,28 +70,61 @@ export default {
     name:'Permohonan',
     data(){
         return{
-            permohonans:[]
+            permohonans:[],
+            dialogPengajuanPermohonan:false,
+            namaRuangan:'',
+            tanggalPeminjaman:'',
+            waktuPeminjaman:'',
+            perihalPeminjaman:''
+        }
+    },
+    methods:{
+        ajukanPermohonan(){
+            this.dialogPengajuanPermohonan = true
+        },
+        simpanPengajuanPermohonan(){
+            let vm=this
+            axios.post('http://localhost:5000/permohonan',{
+                namaRuangan:this.namaRuangan,
+                tanggalPeminjaman:this.tanggalPeminjaman,
+                waktuPeminjaman:this.waktuPeminjaman,
+                perihalPeminjaman:this.perihalPeminjaman
+            },{
+                headers:{
+                    'authorization':"BEARER "+this.$store.state.token
+                }
+            })
+            .then(res=>{
+                this.getData()
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        },
+        getData(){
+            let vm = this
+            axios.get('http://localhost:5000/permohonan',{
+                headers:{'authorization':"bearer "+this.$store.state.token}
+            })
+            .then(res=>{
+                // console.log(res)
+                vm.permohonans = res.data.map(permohonan=>{
+                    permohonan.tanggalPeminjaman = permohonan.tanggalPeminjaman.split('T')[0]
+                    return{ 
+                        ...permohonan                    
+                    }
+                })
+                vm.dialogPengajuanPermohonan=false
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         }
     },
     computed:{
     },
     created(){
-        let vm = this
-        axios.get('http://localhost:5000/permohonan',{
-            headers:{'authorization':"bearer "+this.$store.state.token}
-        })
-        .then(res=>{
-            // console.log(res)
-            vm.permohonans = res.data.map(permohonan=>{
-                permohonan.tanggalPeminjaman = permohonan.tanggalPeminjaman.split('T')[0]
-                return{ 
-                    ...permohonan                    
-                }
-            })
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        this.getData()
     }
 }
 </script>
@@ -83,5 +149,9 @@ export default {
 
     .ditolak{
         background: red;
+    }
+
+    .blue{
+        background: blue!important;
     }
 </style>

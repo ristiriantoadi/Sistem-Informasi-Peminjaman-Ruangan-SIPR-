@@ -79,6 +79,30 @@ app.get('/permohonan',verifyToken,async function(req,res){
         console.log(err)
     }
 })
+app.post('/permohonan',verifyToken,async function(req,res){
+    let ruangan
+    try{
+        ruangan = await Room.findOne({namaRuangan:req.body.namaRuangan.toUpperCase()})
+    }catch(err){
+        console.log(err)
+    }
+
+    const permohonan = new Permohonan({
+        idRuangan:ruangan._id,
+        tanggal:req.body.tanggalPeminjaman,
+        waktu:req.body.waktuPeminjaman,
+        perihal:req.body.perihalPeminjaman,
+        nimPeminjam:req.user.nim,
+        status:"menunggu"
+    })
+    try{
+        const savedPermohonan = await permohonan.save()
+        console.log(savedPermohonan)
+        res.json(savedPermohonan)
+    }catch(error){
+        res.json({message:error})
+    }
+})
 app.get('/ruangan/:namaRuangan',verifyToken,async function (req,res){
     try{
         //get room data
