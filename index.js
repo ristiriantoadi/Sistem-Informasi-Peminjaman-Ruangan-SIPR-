@@ -42,6 +42,24 @@ function verifyToken(req,res,next){
     })
 }
 
+function verifyTokenAdmin(req,res,next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token ==null){
+        return res.sendStatus(401)//unauthorized or unauthenticated
+    }
+
+    jwt.verify(token,SECRET_KEY,(err,user)=>{
+        console.log(user)
+        if(err){
+            return res.sendStatus(403)//forbidden
+        }
+        req.user = user
+        next()
+    })
+}
+
 //routing
 app.get('/', function (req, res) {
     res.send('Hello World!')
@@ -54,16 +72,27 @@ app.get('/ruangan',verifyToken,async function(req,res){
         res.json({message:err})
     }
 })
+app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
+
+})
 app.get('/permohonan',verifyToken,async function(req,res){
     console.log(req.user)
+
     try{
-        const permohonans = await Permohonan.find({nimPeminjam:req.user.nim})
+        let permohonans=null
+        if(req.user.nim != "admin")
+            permohonans = await Permohonan.find({nimPeminjam:req.user.nim})
+        else 
+            permohonans = await Permohonan.find()
         let recordPermohonan=[]
         for(let i=0;i<permohonans.length;i++){
             try{
                 const ruangan = await Room.findById(permohonans[i].idRuangan)
+                const user = await User.findOne({nim:permohonans[i].nimPeminjam})
                 recordPermohonan.push({
+                    idPermohonan:permohonans[i]._id,
                     nimPeminjam:permohonans[i].nimPeminjam,
+                    namaLengkapPeminjam:user.namaLengkap,
                     tanggalPeminjaman:permohonans[i].tanggal,
                     waktuPeminjaman:permohonans[i].waktu,
                     perihalPeminjaman:permohonans[i].perihal,

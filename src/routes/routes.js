@@ -1,4 +1,6 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
+import AdminDashboardLayout from "@/pages/Layout/AdminDashboardLayout.vue";
+
 
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
@@ -10,9 +12,11 @@ import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 import PeminjamanLayout from "@/pages/PeminjamanLayout.vue";
 import Peminjaman from "@/pages/Peminjaman.vue";
+import AdminPeminjaman from "@/pages/AdminPeminjaman.vue";
 import PeminjamanRuangan from "@/pages/PeminjamanRuangan.vue";
 import Login from "@/pages/Login.vue"
 import Permohonan from "@/pages/Permohonan.vue"
+import AdminPermohonan from "@/pages/AdminPermohonan.vue"
 
 const routes = [
   {
@@ -23,13 +27,49 @@ const routes = [
     }
   },
   {
+    path:"/admin",
+    component:AdminDashboardLayout,
+    redirect:"/login",
+    children:[
+      {
+        path:"peminjaman",
+        component:PeminjamanLayout,
+        children:[
+          {
+            path:"",
+            name:"AdminPeminjaman",
+            component:AdminPeminjaman,
+            meta:{
+              protected:true
+            }
+          },
+          {
+            path:":ruangan",
+            name:"AdminPeminjamanRuangan",
+            component:PeminjamanRuangan,
+            meta:{
+              protected:true
+            }
+          }
+        ]
+      },
+      {
+        path:"permohonan",
+        name:"AdminPermohonan",
+        component:AdminPermohonan,
+        meta:{
+          protected:true
+        }
+      }
+    ]
+  },
+  {
     path: "",
     component: DashboardLayout,
     redirect: "/login",
     children: [
       {
         path: "peminjaman",
-        name: "PeminjamanLayout",
         component: PeminjamanLayout,
         meta:{
         },
@@ -75,7 +115,6 @@ const routes = [
           protected:true
         }
       },
-
       {
         path: "user",
         name: "User Profile",
