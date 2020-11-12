@@ -87,7 +87,20 @@ export default {
     },
     methods:{
         tolakPermohonan(idPermohonan){
-            console.log(idPermohonan)
+            let vm=this
+            axios.post('http://localhost:5000/permohonan',{
+                idPermohonan
+            },{
+                headers:{
+                    'authorization':"BEARER "+this.$store.state.token
+                }
+            })
+            .then(res=>{
+                console.log(res)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         },
         ajukanPermohonan(){
             this.dialogPengajuanPermohonan = true

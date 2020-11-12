@@ -85,7 +85,7 @@ export default {
         simpanPengajuanPermohonan(){
             let vm=this
             axios.post('http://localhost:5000/permohonan',{
-                namaRuangan:this.namaRuangan,
+                namaRuangan:this.namaRuangan.toUpperCase(),
                 tanggalPeminjaman:this.tanggalPeminjaman,
                 waktuPeminjaman:this.waktuPeminjaman,
                 perihalPeminjaman:this.perihalPeminjaman

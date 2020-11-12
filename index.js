@@ -51,8 +51,8 @@ function verifyTokenAdmin(req,res,next){
     }
 
     jwt.verify(token,SECRET_KEY,(err,user)=>{
-        console.log(user)
-        if(err){
+        
+        if(err || user.nim != "admin"){
             return res.sendStatus(403)//forbidden
         }
         req.user = user
@@ -73,7 +73,14 @@ app.get('/ruangan',verifyToken,async function(req,res){
     }
 })
 app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
-
+    let idPermohonan = req.body.idPermohonan
+    await Permohonan.findByIdAndUpdate({idPermohonan},{"status":"ditolak"},(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send(result)
+        }
+    })
 })
 app.get('/permohonan',verifyToken,async function(req,res){
     console.log(req.user)
@@ -109,9 +116,9 @@ app.get('/permohonan',verifyToken,async function(req,res){
     }
 })
 app.post('/permohonan',verifyToken,async function(req,res){
-    let ruangan
+    let ruangan=null
     try{
-        ruangan = await Room.findOne({namaRuangan:req.body.namaRuangan.toUpperCase()})
+        ruangan = await Room.findOne({namaRuangan:req.body.namaRuangan})
     }catch(err){
         console.log(err)
     }
