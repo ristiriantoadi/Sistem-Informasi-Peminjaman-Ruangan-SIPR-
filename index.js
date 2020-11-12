@@ -76,8 +76,6 @@ app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
     let idPermohonan = req.body.idPermohonan
     await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"ditolak"},async (err,doc)=>{
         if(err){
-            console.log("err")
-            // console.log(err)
             res.json({
                 err
             })
@@ -95,11 +93,9 @@ app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
     })
 })
 app.post("/ruangan/edit",verifyTokenAdmin,async function(req,res){
-    // console.log(req.body)
+
     await Room.findOneAndUpdate({_id:req.body.idRuangan},{'namaRuangan':req.body.namaRuanganEdited},(err,doc)=>{
         if(err){
-            console.log("err")
-            // console.log(err)
             res.json({
                 err
             })
@@ -125,8 +121,6 @@ app.post("/permohonan/terima",verifyTokenAdmin,async function(req,res){
     let idPermohonan = req.body.idPermohonan
     await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"diterima"},async (err,doc)=>{
         if(err){
-            console.log("err")
-            // console.log(err)
             res.json({
                 err
             })
@@ -238,15 +232,9 @@ app.get('/ruangan/:namaRuangan',verifyToken,async function (req,res){
     }
 })
 app.post('/login', async function (req, res) {
-    // res.json({
-    //     username:req.body.username,
-    //     password:req.body.password
-    // })
     let user=null
     try{
         user = await User.findOne({nim:req.body.nim,password:req.body.password})
-        // const users = await User.find()
-        // res.json(user)
     }catch(err){
         console.log(err)
     }
@@ -267,6 +255,9 @@ app.post('/login', async function (req, res) {
         res.sendStatus(401)
     }
     
+})
+app.get(/.*/,function(req,res){
+    res.sendFile(__dirname+"/dist/index.html")
 })
 
 //connect to mongodb

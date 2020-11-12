@@ -50,18 +50,16 @@ export default {
         })
         .then(function (response) {
             // handle success
-            console.log(vm.ruangans)
             response.data.map(ruangan=>{
                 vm.ruangans.push({
                     namaRuangan:ruangan.namaRuangan.toUpperCase(),
                     link:"/peminjaman/"+ruangan.namaRuangan
                 })
             })
-            console.log(vm.ruangans)
         })
         .catch(function (error) {
             // handle error
-            console.log(error);
+            // console.log(error);
         })
         .then(function () {
             // always executed
