@@ -60,6 +60,8 @@ function verifyTokenAdmin(req,res,next){
     })
 }
 
+app.use(express.static(__dirname+"/dist/"))
+
 //routing
 app.get('/', function (req, res) {
     res.send('Hello World!')
