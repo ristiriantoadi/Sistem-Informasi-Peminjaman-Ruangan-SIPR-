@@ -51,13 +51,13 @@ export default {
                 password:this.password
             }).then(res=>{
                 this.$store.commit('login',res.data)
-                console.log(res.data.nim)
+                // console.log(res.data.nim)
                 if(res.data.nim == "admin")
                     this.$router.replace({path:'/admin/peminjaman'})
                 else
                     this.$router.replace({path:'/peminjaman'})
             }).catch(err=>{
-                console.log(err.response.status)
+                // console.log(err.response.status)
                 if(err.response.status == 401){
                     this.error=true
                 }

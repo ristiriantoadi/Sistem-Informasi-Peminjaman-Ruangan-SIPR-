@@ -98,7 +98,7 @@ export default {
                 this.getData()
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         },
         getData(){
@@ -117,7 +117,7 @@ export default {
                 vm.dialogPengajuanPermohonan=false
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         }
     },

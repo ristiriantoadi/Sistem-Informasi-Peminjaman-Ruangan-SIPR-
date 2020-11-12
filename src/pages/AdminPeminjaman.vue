@@ -101,8 +101,8 @@ export default {
                 }
             })
             .catch(err=>{
-                if(err)
-                    console.log(err)
+                if(err){}
+                    // console.log(err)
             })
         },
         simpanDataRuanganTambah(){
@@ -120,8 +120,8 @@ export default {
                 }
             })
             .catch(err=>{
-                if(err)
-                    console.log(err)
+                if(err){}
+                    // console.log(err)
             })
         },
         editRuangan(ruangan){
@@ -139,7 +139,7 @@ export default {
             .then(function (response) {
                 // handle success
                 vm.ruangans=[]
-                console.log(vm.ruangans)
+                // console.log(vm.ruangans)
                 response.data.map(ruangan=>{
                     vm.ruangans.push({
                         idRuangan:ruangan._id,
@@ -147,11 +147,11 @@ export default {
                         link:"/admin/peminjaman/"+ruangan.namaRuangan
                     })
                 })
-                console.log(vm.ruangans)
+                // console.log(vm.ruangans)
             })
             .catch(function (error) {
                 // handle error
-                console.log(error);
+                // console.log(error);
             })
             .then(function () {
                 // always executed

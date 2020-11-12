@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "private": true,
   "scripts": {
+    "start": "node index.js",
     "serve": "vue-cli-service serve --open",
     "dev": "npm run serve",
     "build": "vue-cli-service build",

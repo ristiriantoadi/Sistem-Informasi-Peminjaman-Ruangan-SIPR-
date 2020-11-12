@@ -65,13 +65,13 @@ export default {
                 }
             })
             .then(res=>{
-                console.log(res)
+                // console.log(res)
                 if(res.status == 200){
                     vm.getData()
                 }
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         },
         terimaPermohonan(idPermohonan){
@@ -84,13 +84,13 @@ export default {
                 }
             })
             .then(res=>{
-                console.log(res)
+                // console.log(res)
                 if(res.status == 200){
                     vm.getData()
                 }
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         },
         ajukanPermohonan(){
@@ -112,7 +112,7 @@ export default {
                 this.getData()
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         },
         getData(){
@@ -121,7 +121,7 @@ export default {
                 headers:{'authorization':"bearer "+this.$store.state.token}
             })
             .then(res=>{
-                console.log(res)
+                // console.log(res)
                 vm.permohonans = res.data.map(permohonan=>{
                     permohonan.tanggalPeminjaman = permohonan.tanggalPeminjaman.split('T')[0]
                     return{ 
@@ -131,7 +131,7 @@ export default {
                 vm.dialogPengajuanPermohonan=false
             })
             .catch(err=>{
-                console.log(err)
+                // console.log(err)
             })
         }
     },
