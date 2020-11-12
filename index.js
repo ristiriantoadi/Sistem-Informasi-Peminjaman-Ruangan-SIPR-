@@ -74,11 +74,31 @@ app.get('/ruangan',verifyToken,async function(req,res){
 })
 app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
     let idPermohonan = req.body.idPermohonan
-    await Permohonan.findByIdAndUpdate({idPermohonan},{"status":"ditolak"},(err,result)=>{
+    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"ditolak"},(err,doc)=>{
         if(err){
-            res.send(err)
+            console.log("err")
+            // console.log(err)
+            res.json({
+                err
+            })
         }else{
-            res.send(result)
+            console.log("success")
+            res.sendStatus(200)
+        }
+    })
+})
+app.post("/permohonan/terima",verifyTokenAdmin,async function(req,res){
+    let idPermohonan = req.body.idPermohonan
+    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"diterima"},(err,doc)=>{
+        if(err){
+            console.log("err")
+            // console.log(err)
+            res.json({
+                err
+            })
+        }else{
+            console.log("success")
+            res.sendStatus(200)
         }
     })
 })

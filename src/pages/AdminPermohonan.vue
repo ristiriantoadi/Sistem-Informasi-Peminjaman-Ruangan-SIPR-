@@ -59,7 +59,7 @@
                                 </md-table-cell>
                                 <md-table-cell>
                                     <md-button @click="tolakPermohonan(permohonan.idPermohonan)" class="md-raised md-primary">Tolak</md-button>
-                                    <md-button class="md-raised md-accent">Terima</md-button>
+                                    <md-button @click="terimaPermohonan(permohonan.idPermohonan)" class="md-raised md-accent">Terima</md-button>
                                 </md-table-cell>
                                 <!-- <md-table-cell><router-link :to="ruangan.link">Lihat Daftar</router-link></md-table-cell> -->
                             </md-table-row>
@@ -88,7 +88,7 @@ export default {
     methods:{
         tolakPermohonan(idPermohonan){
             let vm=this
-            axios.post('http://localhost:5000/permohonan',{
+            axios.post('http://localhost:5000/permohonan/tolak',{
                 idPermohonan
             },{
                 headers:{
@@ -97,6 +97,28 @@ export default {
             })
             .then(res=>{
                 console.log(res)
+                if(res.status == 200){
+                    vm.getData()
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        },
+        terimaPermohonan(idPermohonan){
+            let vm=this
+            axios.post('http://localhost:5000/permohonan/terima',{
+                idPermohonan
+            },{
+                headers:{
+                    'authorization':"BEARER "+this.$store.state.token
+                }
+            })
+            .then(res=>{
+                console.log(res)
+                if(res.status == 200){
+                    vm.getData()
+                }
             })
             .catch(err=>{
                 console.log(err)
