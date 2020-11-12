@@ -135,7 +135,7 @@ export default {
       itemToActivate.active = true;
     },
     updateValue(name, val) {
-      console.log(name);
+      // console.log(name);
       this.$emit(`update:${name}`, val);
     },
     changeSidebarBackground(item) {
