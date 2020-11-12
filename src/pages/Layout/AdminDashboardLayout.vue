@@ -15,10 +15,6 @@
         <md-icon>person</md-icon>
         <p>Permohonan</p>
       </sidebar-link>
-      <sidebar-link to="/admin/ruangan">
-        <md-icon>person</md-icon>
-        <p>Ruangan</p>
-      </sidebar-link>
       <!-- <sidebar-link to="/table">
         <md-icon>content_paste</md-icon>
         <p>Table list</p>

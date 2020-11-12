@@ -1,36 +1,5 @@
 <template>
   <div>
-        <md-dialog :md-active.sync="dialogPengajuanPermohonan">
-            <md-dialog-title>Pengajuan Permohonan</md-dialog-title>
-            <md-dialog-content>
-                <div>
-                    <md-field>
-                        <label>Nama Ruangan</label>
-                        <md-input v-model="namaRuangan"></md-input>
-                    </md-field>
-                    <md-field>
-                        <label>Tanggal Peminjaman</label>
-                        <md-datepicker v-model="tanggalPeminjaman"> </md-datepicker>
-                    </md-field>
-                    <md-field>
-                        <label>Waktu Peminjaman</label>
-                        <md-input v-model="waktuPeminjaman"></md-input>
-                    </md-field>
-                    <md-field>
-                        <label>Perihal</label>
-                        <md-input v-model="perihalPeminjaman"></md-input>
-                    </md-field>
-                </div>
-            </md-dialog-content>
-            <md-dialog-actions>
-                <md-button class="md-primary" @click="simpanPengajuanPermohonan">Ajukan</md-button>
-            </md-dialog-actions>
-    </md-dialog>
-        <div class="md-layout">
-            <div class="md-layout-item">
-                <md-button class="md-primary" @click="ajukanPermohonan">Ajukan permohonan</md-button>
-            </div>
-        </div>
         <div class="md-layout">
             <div class="md-layout-item">
                 <md-card>

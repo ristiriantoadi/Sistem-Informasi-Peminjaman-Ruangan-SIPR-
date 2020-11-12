@@ -8,7 +8,8 @@ const PeminjamanSchema = mongoose.Schema({
     nimPeminjam:String,
     tanggal:Date,
     waktu:String,
-    perihal:String
+    perihal:String,
+    idPermohonan:String
 })
 
 module.exports = mongoose.model('peminjamans',PeminjamanSchema)

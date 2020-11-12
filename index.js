@@ -74,7 +74,29 @@ app.get('/ruangan',verifyToken,async function(req,res){
 })
 app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
     let idPermohonan = req.body.idPermohonan
-    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"ditolak"},(err,doc)=>{
+    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"ditolak"},async (err,doc)=>{
+        if(err){
+            console.log("err")
+            // console.log(err)
+            res.json({
+                err
+            })
+        }else{
+            console.log("success")
+            try{
+                const removedPeminjaman = await Peminjaman.remove({idPermohonan:doc._id})
+                console.log(removedPeminjaman)
+                res.json(removedPeminjaman)
+            }catch(err){
+                res.json({message:err})
+            }
+            // res.sendStatus(200)
+        }
+    })
+})
+app.post("/ruangan/edit",verifyTokenAdmin,async function(req,res){
+    // console.log(req.body)
+    await Room.findOneAndUpdate({_id:req.body.idRuangan},{'namaRuangan':req.body.namaRuanganEdited},(err,doc)=>{
         if(err){
             console.log("err")
             // console.log(err)
@@ -87,9 +109,21 @@ app.post("/permohonan/tolak",verifyTokenAdmin,async function(req,res){
         }
     })
 })
+app.post("/ruangan/tambah",verifyTokenAdmin,async function(req,res){
+    const room = new Room({
+        namaRuangan:req.body.namaRuangan
+    })
+  
+    try{
+        const savedRoom = await room.save()
+        res.json(savedRoom)
+    }catch(error){
+        res.json({message:error})
+    }
+})
 app.post("/permohonan/terima",verifyTokenAdmin,async function(req,res){
     let idPermohonan = req.body.idPermohonan
-    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"diterima"},(err,doc)=>{
+    await Permohonan.findOneAndUpdate({_id:idPermohonan},{'status':"diterima"},async (err,doc)=>{
         if(err){
             console.log("err")
             // console.log(err)
@@ -97,8 +131,22 @@ app.post("/permohonan/terima",verifyTokenAdmin,async function(req,res){
                 err
             })
         }else{
-            console.log("success")
-            res.sendStatus(200)
+            console.log(doc)
+            const peminjaman = new Peminjaman({
+                _idRuangan:doc.idRuangan,
+                nimPeminjam:doc.nimPeminjam,
+                tanggal:doc.tanggal,
+                waktu:doc.waktu,
+                perihal:doc.perihal,
+                idPermohonan:doc._id
+            })
+          
+            try{
+                const savedPeminjaman = await peminjaman.save()
+                res.json(savedPeminjaman)
+            }catch(error){
+                res.json({message:error})
+            }
         }
     })
 })

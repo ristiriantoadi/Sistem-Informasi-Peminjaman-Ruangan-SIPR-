@@ -49,23 +49,23 @@ export default {
     }
   },
   methods:{
-    calculateBreadcrumb(){
-            // console.log(this.$route.meta.breadcrumb)
-            this.$route.meta.breadcrumb.map((breadcrumbItem,index)=>{
-                if(breadcrumbItem.name == null){
-                  console.log(this.$route.path)
-                  let paths=this.$route.path.split("/")
-                  paths.shift()
-                  breadcrumbItem.name = paths[index]
-                  breadcrumbItem.link = breadcrumbItem.link+"/"+paths[index]
-                }
-                // if(index != this.$route.meta.breadcrumb.length-1){
-                //   breadcrumbItem.name += " > "
-                // }
-                this.breadcrumb.push(breadcrumbItem)
-                // console.log(breadcrumbItem.link)
-            })
-        }
+    // calculateBreadcrumb(){
+    //         // console.log(this.$route.meta.breadcrumb)
+    //         this.$route.meta.breadcrumb.map((breadcrumbItem,index)=>{
+    //             if(breadcrumbItem.name == null){
+    //               console.log(this.$route.path)
+    //               let paths=this.$route.path.split("/")
+    //               paths.shift()
+    //               breadcrumbItem.name = paths[index]
+    //               breadcrumbItem.link = breadcrumbItem.link+"/"+paths[index]
+    //             }
+    //             // if(index != this.$route.meta.breadcrumb.length-1){
+    //             //   breadcrumbItem.name += " > "
+    //             // }
+    //             this.breadcrumb.push(breadcrumbItem)
+    //             // console.log(breadcrumbItem.link)
+    //         })
+    //     }
   },
   computed:{
     ruanganUppercase(){
@@ -77,7 +77,7 @@ export default {
         // let routeMatched = this.$route.matched
         // console.log(routeMatched)
         // console.log("hello")
-        this.calculateBreadcrumb()
+        // this.calculateBreadcrumb()
   },
   created(){
     let vm=this
