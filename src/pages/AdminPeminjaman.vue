@@ -91,7 +91,7 @@ export default {
             const options={
                 headers:{'authorization':'BEARER '+this.$store.state.token}
             }
-            axios.post('http://localhost:5000/ruangan/edit',{idRuangan:this.ruanganEdited.idRuangan,namaRuanganEdited:this.namaRuangan},options)
+            axios.post('/ruangan/edit',{idRuangan:this.ruanganEdited.idRuangan,namaRuanganEdited:this.namaRuangan},options)
             .then(res=>{
                 if(res.status == 200){
                     vm.getData()
@@ -110,7 +110,7 @@ export default {
             const options={
                 headers:{'authorization':'BEARER '+this.$store.state.token}
             }
-            axios.post('http://localhost:5000/ruangan/tambah',{namaRuangan:this.namaRuangan},options)
+            axios.post('/ruangan/tambah',{namaRuangan:this.namaRuangan},options)
             .then(res=>{
                 if(res.status == 200){
                     vm.getData()
@@ -131,7 +131,7 @@ export default {
         },
         getData(){
             let vm=this
-            axios.get('http://localhost:5000/ruangan',{
+            axios.get('/ruangan',{
                 headers:{
                     'authorization':'BEARER '+this.$store.state.token
                 }

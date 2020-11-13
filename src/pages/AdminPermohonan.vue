@@ -57,7 +57,7 @@ export default {
     methods:{
         tolakPermohonan(idPermohonan){
             let vm=this
-            axios.post('http://localhost:5000/permohonan/tolak',{
+            axios.post('/permohonan/tolak',{
                 idPermohonan
             },{
                 headers:{
@@ -76,7 +76,7 @@ export default {
         },
         terimaPermohonan(idPermohonan){
             let vm=this
-            axios.post('http://localhost:5000/permohonan/terima',{
+            axios.post('/permohonan/terima',{
                 idPermohonan
             },{
                 headers:{
@@ -98,7 +98,7 @@ export default {
         },
         simpanPengajuanPermohonan(){
             let vm=this
-            axios.post('http://localhost:5000/permohonan',{
+            axios.post('/permohonan',{
                 namaRuangan:this.namaRuangan,
                 tanggalPeminjaman:this.tanggalPeminjaman,
                 waktuPeminjaman:this.waktuPeminjaman,
@@ -117,7 +117,7 @@ export default {
         },
         getData(){
             let vm = this
-            axios.get('http://localhost:5000/permohonan',{
+            axios.get('/permohonan',{
                 headers:{'authorization':"bearer "+this.$store.state.token}
             })
             .then(res=>{

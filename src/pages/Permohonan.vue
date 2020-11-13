@@ -84,7 +84,7 @@ export default {
         },
         simpanPengajuanPermohonan(){
             let vm=this
-            axios.post('http://localhost:5000/permohonan',{
+            axios.post('/permohonan',{
                 namaRuangan:this.namaRuangan.toUpperCase(),
                 tanggalPeminjaman:this.tanggalPeminjaman,
                 waktuPeminjaman:this.waktuPeminjaman,
@@ -103,7 +103,7 @@ export default {
         },
         getData(){
             let vm = this
-            axios.get('http://localhost:5000/permohonan',{
+            axios.get('/permohonan',{
                 headers:{'authorization':"bearer "+this.$store.state.token}
             })
             .then(res=>{
