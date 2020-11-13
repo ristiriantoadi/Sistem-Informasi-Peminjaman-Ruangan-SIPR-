@@ -46,7 +46,7 @@ export default {
     },
     methods:{
         login(){
-            axios.post('http://localhost:80/login',{
+            axios.post('http://localhost/login',{
                 nim:this.nim,
                 password:this.password
             }).then(res=>{
